@@ -57,5 +57,9 @@ function MovieReviews(props) {
 }
 
 function MovieReview(props) {
+  return (
+    <div className="MovieReview">
 
+    </div>
+  )
 }

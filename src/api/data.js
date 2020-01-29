@@ -1,11 +1,11 @@
 export const movieListJSON = [
-  {id:1, title: 'Die Hard', fresh: false, rating: '95%', gross: '$52,000 '},
+  {id:1, title: 'Die Hard', fresh: true, rating: '95%', gross: '$52,000 '},
   {id:2, title: 'Inception', fresh: false, rating: '92%', gross: '$12,000 '},
   {id:3, title: 'Pirate of Caribbean', fresh: false, rating: '85%', gross: '$32,000 '},
-  {id:4, title: 'End Game', fresh: false, rating: '84%', gross: '$42,000 '},
+  {id:4, title: 'End Game', fresh: true, rating: '84%', gross: '$42,000 '},
   {id:5, title: 'Last Jedi', fresh: false, rating: '65%', gross: '$15,000 '},
   {id:6, title: 'Ghost Protocol', fresh: false, rating: '65%', gross: '$42,000 '},
-  {id:7, title: 'Matrix', fresh: false, rating: '87%', gross: '$9,000 '},
+  {id:7, title: 'Matrix', fresh: true, rating: '87%', gross: '$9,000 '},
 ];
 
 export const movieDetailsJSON = {
@@ -20,7 +20,7 @@ export const movieDetailsJSON = {
   2: {
     title: 'Inception',
     rating: '92%',
-    fresh: true,
+    fresh: false,
     audience: '91%',
     consensus: 'Smart, innovative, and thrilling, Inception is that rare summer blockbuster that succeeds viscerally as well as intellectually.',
     poster: '/img/inception.jpg',
@@ -28,10 +28,10 @@ export const movieDetailsJSON = {
   3: {
     title: 'Pirates of the Caribbean',
     rating: '92%',
-    fresh: true,
+    fresh: false,
     audience: '86%',
     consensus: 'May leave you exhausted like the theme park ride that inspired it; however, you\'ll have a good time when it\'s over.',
-    poster: '',
+    poster: '/img/pirates_of_the_caribbean.jpg',
   },
   4: {
     title: 'Avengers: Endgame',
@@ -44,15 +44,15 @@ export const movieDetailsJSON = {
   5: {
     title: 'Star Wars: The Last Jedi',
     rating: '92%',
-    fresh: true,
+    fresh: false,
     audience: '43%',
     consensus: 'The Last Jedi honors the saga\'s rich legacy while adding some surprising twists -- and delivering all the emotion-rich action fans could hope for.',
-    poster: '/img/pirates_of_the_caribbean.jpg',
+    poster: '/img/last_jedi.jpg',
   },
   6: {
     title: 'Mission Impossible: Ghost Protocol',
     rating: '92%',
-    fresh: true,
+    fresh: false,
     audience: '76%',
     consensus: 'Stylish, fast-paced, and loaded with gripping set pieces, the fourth Mission: Impossible is big-budget popcorn entertainment that really works.',
     poster: '/img/ghost_protocol.jpg',
@@ -63,7 +63,7 @@ export const movieDetailsJSON = {
     fresh: true,
     audience: '85%',
     consensus: 'Thanks to the Wachowskis\' imaginative vision, The Matrix is a smartly crafted combination of spectacular action and groundbreaking special effects.',
-    poster: '',
+    poster: '/img/matrix.jpg',
   },
 };
 

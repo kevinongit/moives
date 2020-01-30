@@ -1,5 +1,20 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+
 import { movieDetailsJSON, movieReviewsJSON } from '../api/data';
+
+const useStyles = makeStyles(theme => ({
+  poster: {
+    width: 100,
+    height: 150,
+  },
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
+  },
+}));
 
 export default function MoviePage(props) {
   return (
@@ -11,6 +26,7 @@ export default function MoviePage(props) {
 }
 
 function MovieDetails(props) {
+  const classes = useStyles();
   const movie = movieDetailsJSON[props.id];
   return (
     <div className='MovieDetails'>
@@ -22,9 +38,10 @@ function MovieDetails(props) {
 }
 
 function MoviePoster(props) {
+  const classes = useStyles();
   return (
-    <div className="MoviePoster">
-      <img src={props.src} alt="poster" />
+    <div className={classes.poster}>
+      <img className={classes.img} src={props.src} alt="poster" />
     </div>
   )
 }

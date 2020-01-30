@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     padding: theme.spacing(2),
-    margin: `${theme.spacing(2)}px auto`,
+    // margin: `${theme.spacing(2)}px auto`,
     maxWidth: 600,
     color: theme.palette.text.secondary,
   },
@@ -33,32 +33,31 @@ export default function MovieListPage(props) {
         <h1>Top Box Office</h1>
         {
           movies.map(movie => 
-            <div key={movie.id} onClick={() => {
-              console.log('xxx' + movie.id); 
-              onMovieClick(movie.id);
-            }
-            } >
-            <Paper className={classes.paper} >
-              
-              <Grid container spacing={3} component="button" >
-                <Grid item>
-                  <Typography variant="h3">{movie.fresh ? '🍅' : ' 🤢'} </Typography>
-                </Grid>
-                <Grid item sm container>
-                  <Grid item xs container direction="column" spacing={2}>
-                    <Grid item xs>
-                      <Typography gutterBottom variant="subtitle1">
-                        {movie.title}
-                      </Typography>
-                      <Typography variant="body2" gutterBottom>
-                        MVlist
-                      </Typography>
+            <div key={movie.id} >
+              <Paper className={classes.paper} onClick={() => {
+                  console.log('xxx' + movie.id); 
+                  onMovieClick(movie.id);
+                }} >
+                
+                <Grid container spacing={3} component="button" >
+                  <Grid item>
+                    <Typography variant="h3">{movie.fresh ? '🍅' : ' 🤢'} </Typography>
+                  </Grid>
+                  <Grid item sm container>
+                    <Grid item xs container direction="column" spacing={2}>
+                      <Grid item xs>
+                        <Typography gutterBottom variant="subtitle1">
+                          {movie.title}
+                        </Typography>
+                        <Typography variant="body2" gutterBottom>
+                          MVlist
+                        </Typography>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-              
-            </Paper>
+                
+              </Paper>
             </div>
             
           )

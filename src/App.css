@@ -1,5 +1,6 @@
 .App {
-  text-align: center;
+  text-align: flex-start;
+  margin-left: 10px;
 }
 
 .App-logo {
@@ -22,6 +23,11 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.App-back {
+  text-align: start;
+  justify-content: flex-start;
 }
 
 .App-link {

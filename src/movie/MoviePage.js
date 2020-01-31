@@ -1,15 +1,24 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Paper, Typography, Divider } from '@material-ui/core';
 
 import { movieDetailsJSON, movieReviewsJSON } from '../api/data';
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    margin: '10px',
+    maxWidth: 600,
+  },
   poster: {
-    width: 100,
-    height: 150,
+    width: 200,
+    height: 250,
   },
   img: {
-    margin: 'auto',
+    // margin: 'auto',
     display: 'block',
     maxWidth: '100%',
     maxHeight: '100%',
@@ -29,10 +38,15 @@ function MovieDetails(props) {
   const classes = useStyles();
   const movie = movieDetailsJSON[props.id];
   return (
-    <div className='MovieDetails'>
-      <MoviePoster src={movie.poster} />
-      <h1>{movie.title}</h1>
-      <MovieMatrics {...movie} />
+    <div className={classes.root}>
+      <Paper className={classes.paper}>
+        <Grid container spacing={2}>
+          <MoviePoster src={movie.poster} />
+          {/* <h2>{movie.title}</h2> */}
+          <MovieMatrics {...movie} />
+        </Grid>
+      </Paper>
+      
     </div>
   )
 }
@@ -40,22 +54,63 @@ function MovieDetails(props) {
 function MoviePoster(props) {
   const classes = useStyles();
   return (
-    <div className={classes.poster}>
+    <Grid item className={classes.poster}>
       <img className={classes.img} src={props.src} alt="poster" />
-    </div>
+    </Grid>
   )
 }
 
 function MovieMatrics(props) {
   return (
-    <div className='MovieMetrics-tomato'>
-      <h4>Tomatometer</h4>
-      <p>
-        {props.fresh ? '🍅' : ' 🤢'}
-        {' '}
-        {props.rating}
-      </p>
-    </div>
+    <Grid item xs={12} sm container>
+      <Grid item xs container direction="column" spacing={2}>
+        <Grid item xs>
+          <Typography gutterBottom variant="h4">
+            {props.title}
+          </Typography>
+        </Grid>
+        {/* <Divider/> */}
+      </Grid>
+      <Grid item container direction="row" spacing={10}>
+        <Grid item direction="coloumn" spacing={3}>
+          <Grid item>
+            <Typography variant="subtitle2" color="textPrimary">
+              TOMATOMETER
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="h5" color="textPrimary">
+            {props.fresh ? '🍅' : ' 🤢'} {props.rating}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid item  direction="coloumn" spacing={2}>
+          <Grid item>
+            <Typography variant="subtitle2" color="textPrimary">
+              AUDIENCE
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="h5" color="textPrimary">
+              {'🍿'} {props.audience}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item  direction="coloumn" spacing={2}>
+        <Grid item>
+          <Typography variant="subtitle2" color="textPrimary">
+            CRITICS CONSENSUS
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="body2" color="textSecondary">
+            {props.consensus}
+          </Typography>
+        </Grid>
+      </Grid>
+    </Grid>
   )
 }
 

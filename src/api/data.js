@@ -50,7 +50,7 @@ export const movieDetailsJSON = {
     poster: '/img/last_jedi.jpg',
   },
   6: {
-    title: 'Mission Impossible: Ghost Protocol',
+    title: 'Mission Impossible',
     rating: '92%',
     fresh: false,
     audience: '76%',

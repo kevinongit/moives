@@ -26,8 +26,9 @@
 }
 
 .App-back {
-  text-align: start;
-  justify-content: flex-start;
+  font-size: 30px;
+  /* text-align: start; */
+  /* justify-content: flex-start; */
 }
 
 .App-link {

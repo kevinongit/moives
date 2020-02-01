@@ -9,9 +9,16 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   paper: {
-    padding: theme.spacing(2),
-    margin: '10px',
+    // padding: theme.spacing(2),
+    // margin: '10px',
     maxWidth: 600,
+  },
+  reviewPaper: {
+    // padding: theme.spacing(2),
+    // maxWidth: 300,
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
   },
   poster: {
     width: 200,
@@ -26,8 +33,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function MoviePage(props) {
+  const classes = useStyles();
   return (
-    <div>
+    <div className={classes.root}>
       <MovieDetails id={props.id} />
       <MovieReviews id={props.id} />
     </div>
@@ -38,16 +46,16 @@ function MovieDetails(props) {
   const classes = useStyles();
   const movie = movieDetailsJSON[props.id];
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
+    // <div className={classes.root}>
+      <div className={classes.paper}>
         <Grid container spacing={2}>
           <MoviePoster src={movie.poster} />
           {/* <h2>{movie.title}</h2> */}
           <MovieMatrics {...movie} />
         </Grid>
-      </Paper>
+      </div>
       
-    </div>
+    // </div>
   )
 }
 
@@ -115,23 +123,31 @@ function MovieMatrics(props) {
 }
 
 function MovieReviews(props) {
+  const classes = useStyles();
   const reviews = movieReviewsJSON[props.id];
   return (
-    <div className="MovieReviews">
-      {reviews.map(review =>
-        <MovieReview
-          key={review.id}
-          {...review}
-        />
-      )}
-    </div>
+    // <div className={classes.root}>
+      // <div className={classes.paper} >
+        <Grid container  className={classes.paper} >
+          {reviews.map(review =>
+            <MovieReview
+              key={review.id}
+              {...review}
+            />
+          )}
+        </Grid>
+      // </div>
+      
+    // </div>
   )
 }
 
 function MovieReview(props) {
+  const classes=useStyles();
   return (
-    <div className="MovieReview">
-
-    </div>
+      <Grid item xs>
+        <Paper className={classes.reviewPaper}> {props.text} </Paper>
+        
+      </Grid>
   )
 }

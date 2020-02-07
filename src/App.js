@@ -4,10 +4,14 @@ import './App.css';
 import MovieListPage from './movie/MovieListPage';
 import MoviePage from './movie/MoviePage';
 
+import Spinner from './misc/Spinner'
+
 export default class App extends PureComponent {
   state = {
     currentId: null,
     showDetail: false,
+
+    // enteredId: null,
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -24,6 +28,7 @@ export default class App extends PureComponent {
       currentId: id,
       showDetail: true,
     });
+    
   }
   handleBackClick = () => {
     this.setState({
@@ -31,6 +36,8 @@ export default class App extends PureComponent {
       showDetail: false,
     })
   }
+
+  
 
   render() {
     const { currentId, showDetail } = this.state;
@@ -62,6 +69,8 @@ export default class App extends PureComponent {
     return (
       <MovieListPage
         onMovieClick={this.handleMovieClick}
+
+        isLoading={false}
       />
     );
   }
@@ -71,7 +80,7 @@ function NextButton(props) {
   return (
     <div className="next" onClick={props.onClick}>
       <div className="next-inner">
-        { props.isLoading ? 'Spinner small' : '👉'}
+        { props.isLoading ? <Spinner /> : '👉'}
       </div>
     </div>
   )

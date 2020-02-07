@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Typography, Divider } from '@material-ui/core';
 
@@ -80,7 +80,7 @@ function MovieMatrics(props) {
         {/* <Divider/> */}
       </Grid>
       <Grid item container direction="row" spacing={10}>
-        <Grid item direction="coloumn" spacing={3}>
+        <Grid item direction="column">
           <Grid item>
             <Typography variant="subtitle2" color="textPrimary">
               TOMATOMETER
@@ -93,7 +93,7 @@ function MovieMatrics(props) {
           </Grid>
         </Grid>
 
-        <Grid item  direction="coloumn" spacing={2}>
+        <Grid item  direction="column" >
           <Grid item>
             <Typography variant="subtitle2" color="textPrimary">
               AUDIENCE
@@ -106,7 +106,7 @@ function MovieMatrics(props) {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item  direction="coloumn" spacing={2}>
+      <Grid item  direction="column" >
         <Grid item>
           <Typography variant="subtitle2" color="textPrimary">
             CRITICS CONSENSUS

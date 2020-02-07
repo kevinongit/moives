@@ -1,69 +1,123 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles'
-import { Paper, Grid, ButtonBase, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles'
+import { List, ListItem, Divider, ListItemText, ListItemAvatar, Avatar, Typography, Grid, } from '@material-ui/core';
+
+import Spinner from '../misc/Spinner'
 
 
-import { movieListJSON } from '../api/data';
+// import { movieListJSON } from '../api/data';
+import { fetchMovieList } from '../api'
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   root: {
+    // width: "100%",
     flexGrow: 1,
-    spacing: 2,
-    
+    maxWidth: 400,
+    // backgroundColor: theme.palette.background.paper,
   },
-  paper: {
-    padding: theme.spacing(2),
-    // margin: `${theme.spacing(2)}px auto`,
-    maxWidth: 600,
-    color: theme.palette.text.secondary,
+  demo: {
+    backgroundColor: theme.palette.background.paper,
+    // backgroundColor: "white",
+    // borderWidth: 10,
+    // border:"2px",
+    // borderColor: 'red',
   },
-  left: {
-    width: 50,
-    height: 50,
-  }
-}));
+  title: {
+    // margin: theme.spacing(4, 0, 2),
+  },
+  inline: {
+    display: "inline",
+  },
+});
 
-export default function MovieListPage(props) {
-  const classes = useStyles();
-  const movies = movieListJSON;
-  const onMovieClick = props.onMovieClick;
-  console.log(onMovieClick)
-  return (
-    <div className={classes.root}>
-        <h1>Top Box Office</h1>
-        {
-          movies.map(movie => 
-            <div key={movie.id} >
-              <Paper className={classes.paper} onClick={() => {
-                  console.log('xxx' + movie.id); 
-                  onMovieClick(movie.id);
-                }} >
-                
-                <Grid container spacing={3} component="button" >
-                  <Grid item>
-                    <Typography variant="h3">{movie.fresh ? '🍅' : ' 🤢'} </Typography>
-                  </Grid>
-                  <Grid item sm container>
-                    <Grid item xs container direction="column" spacing={2}>
-                      <Grid item xs>
-                        <Typography gutterBottom variant="subtitle1">
-                          {movie.title}
-                        </Typography>
-                        <Typography variant="body2" gutterBottom>
-                          MVlist
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                
-              </Paper>
-            </div>
+class MovieListPage extends React.Component {
+  state = {
+    movies: null,
+    enteredId: null,
+  }
+  handleEnter = (id) => {
+    this.setState({
+      enteredId: id,
+    })
+  }
+
+  handleLeave = () => {
+    this.setState({
+      enteredId: null,
+    })
+  }
+
+  componentDidMount() {
+    fetchMovieList({interval: 0}).then(list => this.setState({ movies : list }))
+  }
+  render() {
+    const classes = this.props;
+    const movies = this.state.movies;
+
+    const onMovieClick = this.props.onMovieClick;
+    // console.log(onMovieClick)
+    return (
+      <div className={classes.root}>
+        <div style={{margin: 10}}>
+          <Typography variant="h3" className={classes.title}>Top Box Office 🍿</Typography>
+        </div>
+        <Grid container spacing={2}>
+          <Grid item >
             
-          )
+            <div classsName={classes.demo}>
+              <List>
+                {
+                  movies && movies.map(movie =>
+                    <>
+                      <ListItem
+                        // alignItems="flex-start"
+                        key={movie.id}
+                        onClick={() => {
+                          console.log('xxx' + movie.id);
+                          onMovieClick(movie.id);
+                        }}
+                        onMouseEnter={() => { console.log('mouseEnter', movie.id); this.handleEnter(movie.id) }}
+                        onMouseLeave={() => { console.log('mouseLeave', movie.id); this.handleLeave() }}
+                      >
+                        <div style={{width: 100,}}>
+                          <ListItemText
+                            primary={
+                              <Typography variant="h3"> {movie.fresh ? '🍅' : ' 🤢'} </Typography>
+                            }
+                          />
+                        </div>
+                        <div style={{width: 600, borderWidth: "2px",}}>
+                        <ListItemText
+                          primary={
+                            <Typography variant="h5">{movie.title}</Typography>
+                          }
+                          secondary={
+                            <Typography variant="body2" gutterBottom>MVList</Typography>
+                          }
+                        />
+                        </div>
+                        
+                        <ListItemText
+                          primary={
+                            this.state.enteredId === movie.id && <Typography variant="h3">{this.props.isLoading ? <Spinner /> : '👉'} </Typography>
+                          }
+                          justifyContent="flex-end"
+                        />
+                        
+                      </ListItem>
+                      <Divider component="li" />
+                    </>
+                  )
+                }
+              </List>
+            </div>
+          </Grid>
           
-        }
-      
-    </div>
-  )
+        </Grid>
+      </div>
+    )
+  }
+
 }
+
+export default withStyles(styles)(MovieListPage);

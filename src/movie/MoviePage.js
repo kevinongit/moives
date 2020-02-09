@@ -2,7 +2,8 @@ import React, { Suspense } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Typography, Divider } from '@material-ui/core';
 
-import { movieDetailsJSON, movieReviewsJSON } from '../api/data';
+import { movieReviewsJSON } from '../api/data';
+import { fetchMovieDetails } from '../api';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,7 +45,8 @@ export default function MoviePage(props) {
 
 function MovieDetails(props) {
   const classes = useStyles();
-  const movie = movieDetailsJSON[props.id];
+  // const movie = movieDetailsJSON[props.id];
+  const movie = fetchMovieDetails(props);
   return (
     // <div className={classes.root}>
       <div className={classes.paper}>
@@ -54,7 +56,7 @@ function MovieDetails(props) {
           <MovieMatrics {...movie} />
         </Grid>
       </div>
-      
+
     // </div>
   )
 }
@@ -137,7 +139,7 @@ function MovieReviews(props) {
           )}
         </Grid>
       // </div>
-      
+
     // </div>
   )
 }
@@ -147,7 +149,7 @@ function MovieReview(props) {
   return (
       <Grid item xs>
         <Paper className={classes.reviewPaper}> {props.text} </Paper>
-        
+
       </Grid>
   )
 }

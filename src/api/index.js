@@ -1,6 +1,7 @@
 
 import { movieListJSON, movieDetailsJSON, movieReviewsJSON } from './data';
 
+
 export function fetchMovieList(props) {
     const interval = (props && props.interval) || 0;
     console.log('fetch movie list...');
@@ -12,15 +13,68 @@ export function fetchMovieList(props) {
     });
 }
 
+let cache = { };
+
+function cacheFind(id, category) {
+  return (cache && id && cache[id] && cache[id][category]) || null;
+}
+
+function cacheAdd(id, category, item) {
+  if (!id || !category || !item) {
+    console.log(' id, category and item should be presented!!')
+    return
+  }
+  if (!cache[id]) {
+    cache[id] = {}
+  }
+  cache[id][category] = item;
+}
+
+function cacheRemove(id=null, category=null) {
+
+  if (id && category) {
+    if (cache && cache[id] && cache[id][category]) {
+      delete cache[id][category]
+      console.log(`cacheRemove: id(${id}),category(${category})`)
+    }
+  } else if (id) {
+    if (cache && cache[id]) {
+      delete cache[id];
+      console.log(`cacheRemove: id(${id}),category(${category})`)
+    }
+  } else {
+    cache = {}
+    console.log("cache cleared!!!")
+  }
+}
+
 export function fetchMovieDetails(props) {
-    const interval = (props && props.interval) || 0;
-    console.log('fetch movie details...');
-    return new Promise(resolve => {
-        setTimeout(() => {
-            console.log('fetched movie dettails.');
-            resolve(movieDetailsJSON[props.id])
-        }, interval);
-    });
+  let found = cacheFind(props.id, "details");
+  console.log("fetchMovieDetails props ", props)
+  if (!found) {
+    // found = fetchMovieDetailsImpl(props);
+    found = fetchMovieDetailsImpl(props);
+  }
+
+  console.log("found = ", found)
+
+  // return found;
+  return found ? new Promise(resolve => resolve(found)) : fetchMovieDetailsImpl(props);
+}
+
+
+function fetchMovieDetailsImpl(props) {
+  const CATEGORY = "details";
+  const interval = (props && props.interval) || 0;
+  console.log('fetch movie detailsImpl...', props);
+  return new Promise(resolve => {
+      setTimeout(() => {
+          console.log('fetched movie dettails.');
+          const item = movieDetailsJSON[props.id];
+          cacheAdd(props.id, CATEGORY, item);
+          resolve(item)
+      }, interval);
+  });
 }
 
 export function fetchMovieReviews(props) {

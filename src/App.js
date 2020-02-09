@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import ReactDOM from 'react-dom'
 import logo from './logo.svg';
 import './App.css';
 import MovieListPage from './movie/MovieListPage';
@@ -12,6 +13,10 @@ export default class App extends PureComponent {
     showDetail: false,
 
     // enteredId: null,
+  }
+
+  deferSetState(state, sideEffects) {
+    ReactDOM.unstable_deferredUpdates(() => this.setState(state, sideEffects))
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -28,7 +33,9 @@ export default class App extends PureComponent {
       currentId: id,
       showDetail: true,
     });
-    
+
+    // this.deferSetState({ showDetail: true})
+
   }
   handleBackClick = () => {
     this.setState({
@@ -37,7 +44,7 @@ export default class App extends PureComponent {
     })
   }
 
-  
+
 
   render() {
     const { currentId, showDetail } = this.state;

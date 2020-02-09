@@ -63,17 +63,17 @@ class MovieListPage extends React.Component {
         </div>
         <Grid container spacing={2}>
           <Grid item >
-            
-            <div classsName={classes.demo}>
+
+            <div >
               <List>
                 {
-                  movies && movies.map(movie =>
-                    <>
+                  movies && movies.map(movie => (
+                    <div key={movie.id}>
                       <ListItem
                         // alignItems="flex-start"
                         key={movie.id}
                         onClick={() => {
-                          console.log('xxx' + movie.id);
+                          console.log('movie.id : ' + movie.id);
                           onMovieClick(movie.id);
                         }}
                         onMouseEnter={() => { console.log('mouseEnter', movie.id); this.handleEnter(movie.id) }}
@@ -96,23 +96,22 @@ class MovieListPage extends React.Component {
                           }
                         />
                         </div>
-                        
+
                         <ListItemText
                           primary={
                             this.state.enteredId === movie.id && <Typography variant="h3">{this.props.isLoading ? <Spinner /> : '👉'} </Typography>
                           }
-                          justifyContent="flex-end"
                         />
-                        
+
                       </ListItem>
                       <Divider component="li" />
-                    </>
-                  )
+                    </div>
+                  ))
                 }
               </List>
             </div>
           </Grid>
-          
+
         </Grid>
       </div>
     )

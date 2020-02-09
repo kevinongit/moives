@@ -37,8 +37,10 @@ export default function MoviePage(props) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <MovieDetails id={props.id} />
-      <MovieReviews id={props.id} />
+
+        <MovieDetails id={props.id} />
+        <MovieReviews id={props.id} />
+      
     </div>
   )
 }
@@ -60,7 +62,7 @@ function MovieDetails(props) {
         </Grid>
       </div>
       :
-      <Spinner />
+      <Spinner isBig />
   )
 }
 

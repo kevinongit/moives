@@ -1,13 +1,15 @@
-import React, { PureComponent } from 'react';
+import React, { Component, PureComponent, Suspense } from 'react';
 import ReactDOM from 'react-dom'
 import logo from './logo.svg';
 import './App.css';
 import MovieListPage from './movie/MovieListPage';
 import MoviePage from './movie/MoviePage';
 
+// import { future: { Component } } from 'async-react-future';
+
 import Spinner from './misc/Spinner'
 
-export default class App extends PureComponent {
+export default class App extends Component {
   state = {
     currentId: null,
     showDetail: false,
@@ -31,10 +33,10 @@ export default class App extends PureComponent {
   handleMovieClick = (id) => {
     this.setState({
       currentId: id,
-      // showDetail: true,
+      showDetail: true,
     });
 
-    this.deferSetState({ showDetail: true})
+    // this.deferSetState({ showDetail: true})
 
   }
   handleBackClick = () => {
@@ -50,10 +52,16 @@ export default class App extends PureComponent {
     const { currentId, showDetail } = this.state;
     return (
       <div className='App'>
-        { showDetail ?
-          this.renderDetail(currentId) :
-          this.renderList()
-        }
+        <Suspense
+          maxDuration={1500}
+          fallback={<Spinner/>}
+        >
+          { showDetail ?
+            this.renderDetail(currentId) :
+            this.renderList()
+          }
+        </Suspense>
+        
       </div>
     );
   }
@@ -67,6 +75,7 @@ export default class App extends PureComponent {
             {'👈'}
           </button>
           <MoviePage id={id} />
+          
       </>
     )
 

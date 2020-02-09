@@ -31,10 +31,10 @@ export default class App extends PureComponent {
   handleMovieClick = (id) => {
     this.setState({
       currentId: id,
-      showDetail: true,
+      // showDetail: true,
     });
 
-    // this.deferSetState({ showDetail: true})
+    this.deferSetState({ showDetail: true})
 
   }
   handleBackClick = () => {

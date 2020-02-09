@@ -1,10 +1,10 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Typography, Divider } from '@material-ui/core';
 
 import { movieReviewsJSON } from '../api/data';
 import { fetchMovieDetails } from '../api';
-
+import Spinner from '../misc/Spinner'
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -45,10 +45,13 @@ export default function MoviePage(props) {
 
 function MovieDetails(props) {
   const classes = useStyles();
+  const [movie, setMovie] = useState(null);
   // const movie = movieDetailsJSON[props.id];
-  const movie = fetchMovieDetails(props);
+
+  const fm = fetchMovieDetails({...props, interval: 3000});
+  fm.then(m => setMovie(m));
   return (
-    // <div className={classes.root}>
+    movie ? 
       <div className={classes.paper}>
         <Grid container spacing={2}>
           <MoviePoster src={movie.poster} />
@@ -56,8 +59,8 @@ function MovieDetails(props) {
           <MovieMatrics {...movie} />
         </Grid>
       </div>
-
-    // </div>
+      :
+      <Spinner />
   )
 }
 

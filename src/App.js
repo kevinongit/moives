@@ -5,8 +5,6 @@ import './App.css';
 import MovieListPage from './movie/MovieListPage';
 import MoviePage from './movie/MoviePage';
 
-// import { future: { Component } } from 'async-react-future';
-
 import Spinner from './misc/Spinner'
 
 export default class App extends Component {
@@ -17,9 +15,6 @@ export default class App extends Component {
     // enteredId: null,
   }
 
-  deferSetState(state, sideEffects) {
-    ReactDOM.unstable_deferredUpdates(() => this.setState(state, sideEffects))
-  }
 
   componentDidUpdate(prevProps, prevState) {
     if (
@@ -36,6 +31,9 @@ export default class App extends Component {
       showDetail: true,
     });
 
+    // this.unstable_deferredUpdates({
+    //   showDetail: true,
+    // })
     // this.deferSetState({ showDetail: true})
 
   }

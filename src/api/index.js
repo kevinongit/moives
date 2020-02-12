@@ -48,7 +48,13 @@ function cacheRemove(id=null, category=null) {
   }
 }
 
-export function fetchMovieDetails(props) {
+const delay = (duration) => new Promise((resolve) => setTimeout(resolve,duration));
+
+export async function fetchMovieDetails(id) {
+  await delay(1000);
+  return movieDetailsJSON[id];
+}
+export function fetchMovieDetails2(props) {
   let found = cacheFind(props.id, "details");
   console.log("fetchMovieDetails props ", props)
   if (!found) {

@@ -1,101 +1,86 @@
-import React, { Component, PureComponent, Suspense } from 'react';
-import ReactDOM from 'react-dom'
-import logo from './logo.svg';
-import './App.css';
-import MovieListPage from './movie/MovieListPage';
+import React, { Suspense } from "react";
+import ReactDOM from "react-dom"
+import Spinner from "./misc/Spinner";
+import MovieListPage from "./movie/MovieListPage";
 import MoviePage from './movie/MoviePage';
+import './App.css';
 
-import Spinner from './misc/Spinner'
+const App = () => {
+  const [currentId, setCurrentId] = React.useState(null);
+  const deferredCurrentId = React.useDeferredValue(currentId, {
+    timeoutMs: 4000,
+  });
 
-export default class App extends Component {
-  state = {
-    currentId: null,
-    showDetail: false,
+  const handleMovieClick = id => {
+    setCurrentId(id);
+  };
 
-    // enteredId: null,
-  }
+  const handleBackClick = () => {
+    setCurrentId(null);
+  };
 
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevState.showDetail !== this.state.showDetail ||
-      prevState.currentId !== this.state.currentId
-    ) {
-      window.scrollTo(0,0);
-    }
-  }
-
-  handleMovieClick = (id) => {
-    this.setState({
-      currentId: id,
-      showDetail: true,
-    });
-
-    // this.unstable_deferredUpdates({
-    //   showDetail: true,
-    // })
-    // this.deferSetState({ showDetail: true})
-
-  }
-  handleBackClick = () => {
-    this.setState({
-      currentId: null,
-      showDetail: false,
-    })
-  }
-
-
-
-  render() {
-    const { currentId, showDetail } = this.state;
-    return (
-      <div className='App'>
-        <Suspense
-          maxDuration={1500}
-          fallback={<Spinner/>}
-        >
-          { showDetail ?
-            this.renderDetail(currentId) :
-            this.renderList()
-          }
-        </Suspense>
-        
-      </div>
-    );
-  }
-
-  renderDetail(id) {
+  function renderDetail(id) {
     return (
       <>
         <button
           className='App-back'
-          onClick={this.handleBackClick}>
+          onClick={handleBackClick}>
             {'👈'}
           </button>
           <MoviePage id={id} />
           
       </>
     )
-
+  
   }
-
-  renderList() {
+  
+  function renderList() {
     return (
       <MovieListPage
-        onMovieClick={this.handleMovieClick}
-
+        onMovieClick={handleMovieClick}
+  
         isLoading={false}
       />
     );
   }
-}
 
-function NextButton(props) {
+  const showDetail =
+    deferredCurrentId !== null && currentId === deferredCurrentId;
+// console.log(`showDetail(${showDetail}), currentId(${currentId}), deferredCurrentId(${deferredCurrentId})`)
+  // return (
+  //   <React.Suspense 
+  //     // maxDuration={1500}
+      
+  //     fallback={<Spinner isBig />}
+  //   >
+  //     {!showDetail ? (
+  //       <MovieListPage onMovieClick={handleMovieClick} />
+  //     ) : (
+  //       <div>
+  //         <button className="onBack" onClick={handleBackClick}>
+  //           {"👈"}
+  //         </button>
+  //         <MoviePage id={deferredCurrentId} />
+  //       </div>
+  //     )}
+  //   </React.Suspense>
+  // );
   return (
-    <div className="next" onClick={props.onClick}>
-      <div className="next-inner">
-        { props.isLoading ? <Spinner /> : '👉'}
-      </div>
+    <div className='App'>
+      <Suspense
+        maxDuration={1500}
+        fallback={<Spinner isBig/>}
+      >
+        { showDetail ?
+          renderDetail(currentId) :
+          renderList()
+        }
+      </Suspense>
+      
     </div>
-  )
-}
+  );
+};
+
+
+
+export default App;

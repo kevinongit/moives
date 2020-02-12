@@ -7,11 +7,13 @@ import * as serviceWorker from './serviceWorker';
 import { Director } from 'hitchcock';
 
 const container = document.getElementById("root");
-ReactDOM.render(
-    <Director>
-        <App/>
-    </Director>, container
-)
+const root=ReactDOM.createRoot(container);
+root.render(<Director><App/></Director>);
+// ReactDOM.render(
+//     <Director>
+//         <App/>
+//     </Director>, container
+// )
 // ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

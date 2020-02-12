@@ -9,9 +9,9 @@
     "@testing-library/user-event": "^7.1.2",
     "async-react-future": "^0.0.11",
     "hitchcock": "^0.5.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0"
+    "react": "0.0.0-experimental-5faf377df",
+    "react-dom": "0.0.0-experimental-5faf377df",
+    "react-scripts": "3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

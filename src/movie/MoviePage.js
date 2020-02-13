@@ -4,7 +4,6 @@ import { Grid, Paper, Typography, Divider } from '@material-ui/core';
 import { movieReviewsJSON, movieDetailsJSON } from '../api/data';
 import { fetchMovieDetails } from '../api';
 import { createResource } from 'hitchcock'
-import Spinner from '../misc/Spinner'
 
 
 export default function MoviePage(props) {

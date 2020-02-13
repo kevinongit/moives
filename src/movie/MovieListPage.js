@@ -3,10 +3,11 @@ import Spinner from '../misc/Spinner'
 import { movieListJSON as movies } from '../api/data';
 
 
-export default function MovieListPage({ loadingId, onMovieClick }) {
+export default function MovieListPage({ loadingId, onMovieClick, toggleTool }) {
+  console.log(`loadingId(${loadingId})`)
   return (
     <div>
-      <h1>Top Box Office 🍿 </h1>
+      <h1> Top Box Office<a className="Bug" onClick={toggleTool}>{' 🐞'}</a> 🍿 </h1>
 
       <div >
         {

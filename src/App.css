@@ -29,6 +29,18 @@
   font-size: 30px;
   /* text-align: start; */
   /* justify-content: flex-start; */
+  background-color: transparent;
+  /* border: none; */
+}
+
+.Bug {
+  font-size: 1px;
+  /* text-align: start;
+  justify-content: flex-end; */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
 }
 
 .App-link {

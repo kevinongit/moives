@@ -7,7 +7,7 @@ export default function MovieListPage({ loadingId, onMovieClick, toggleTool }) {
   console.log(`loadingId(${loadingId})`)
   return (
     <div>
-      <h1> Top Box Office<a className="Bug" onClick={toggleTool}>{' 🐞'}</a> 🍿 </h1>
+      <h1> Top Box <a  onClick={toggleTool}>🐞</a>ffice {/*<a className="Bug" onClick={toggleTool}>{' 🐞'}</a> */}🍿 </h1>
 
       <div >
         {

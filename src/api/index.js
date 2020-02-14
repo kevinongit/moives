@@ -52,8 +52,31 @@ const delay = (duration) => new Promise((resolve) => setTimeout(resolve,duration
 
 export async function fetchMovieDetails(id) {
   await delay(1000);
-  return movieDetailsJSON[id];
+  return new Promise(resolve => {
+    resolve(movieDetailsJSON[id]);
+  });
 }
+
+// export async function fetchMovieReviews(id) {
+//   await delay(1000);
+//   return new Promise(resolve => {
+//     resolve(movieReviewsJSON[id]);
+//   });
+// }
+
+export function fetchMovieReviews(id) {
+  const interval =  1000;
+  console.log('fetch movie reviews...');
+  return new Promise(resolve => {
+      setTimeout(() => {
+          console.log('fetched movie reviews.');
+          resolve(movieReviewsJSON[id])
+      }, interval);
+  });
+}
+
+
+
 export function fetchMovieDetails2(props) {
   let found = cacheFind(props.id, "details");
   console.log("fetchMovieDetails props ", props)
@@ -83,16 +106,6 @@ function fetchMovieDetailsImpl(props) {
   });
 }
 
-export function fetchMovieReviews(props) {
-    const interval = (props && props.interval) || 0;
-    console.log('fetch movie reviews...');
-    return new Promise(resolve => {
-        setTimeout(() => {
-            console.log('fetched movie reviews.');
-            resolve(movieReviewsJSON[props.id])
-        }, interval);
-    });
-}
 
 /// code from : https://codesandbox.io/s/frosty-hermann-bztrp
 // Suspense integrations like Relay implement

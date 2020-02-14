@@ -2,17 +2,23 @@ import React, { Suspense, useState } from 'react';
 import { Grid, Paper, Typography, Divider } from '@material-ui/core';
 
 import { movieReviewsJSON, movieDetailsJSON } from '../api/data';
-import { fetchMovieDetails } from '../api';
-import { createResource } from 'hitchcock'
+import { fetchMovieDetails, fetchMovieReviews } from '../api';
+import { createResource } from 'hitchcock';
+
+import Spinner from '../misc/Spinner';
 
 
 export default function MoviePage(props) {
   return (
     <div>
       <MovieDetails id={props.id} />
-      <div className="MovieReviews">
+      
+      {/* <Suspense
+        fallback={<Spinner isBig/>}
+      > */}
         <MovieReviews id={props.id} />
-      </div>
+      {/* </Suspense> */}
+      
     </div>
   )
 }
@@ -76,14 +82,23 @@ function MovieMetrics(movie) {
   )
 }
 
+const movieReviewsFetcher = createResource(
+  fetchMovieReviews,
+  id => `/movies/${id}/reviews`
+);
+
 function MovieReviews(props) {
-  const reviews = movieReviewsJSON[props.id];
-  return (reviews || []).map((review, index) => (
-    <div className="review" key={index}>
-      <div className="summary">{review.text}</div>
-      {/* <div className="author">{review.author}</div> */}
+  const reviews = movieReviewsFetcher.read(props.id);
+  return (<div className="MovieReviews">
+    {(reviews || []).map((review, index) => (
+    
+      <div className="review" key={index}>
+        <div className="summary">{review.text}</div>
+        {/* <div className="author">{review.author}</div> */}
+      </div>
+    )) }
     </div>
-  ))
+  )
 }
 
 // function MovieReview(props) {

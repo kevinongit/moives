@@ -21,7 +21,7 @@ const toggleTool = () => {
 const App = () => {
   const [currentId, setCurrentId] = React.useState(null);
   const deferredCurrentId = React.useDeferredValue(currentId, {
-    timeoutMs: 1000,
+    timeoutMs: 3000,
   });
 
   const handleMovieClick = id => {
@@ -48,7 +48,7 @@ const App = () => {
     )
   }
   
-  function renderList() {
+  function renderList(id) {
     return (
       <>
         {/* <button
@@ -59,7 +59,8 @@ const App = () => {
         <MovieListPage
           onMovieClick={handleMovieClick}
           toggleTool={toggleTool}
-          // loadingId={currentId}
+          // loadingId={2}
+          loadingId={id}
         />
       </>
     );
@@ -67,7 +68,7 @@ const App = () => {
 
   const showDetail =
     deferredCurrentId !== null && currentId === deferredCurrentId;
-// console.log(`showDetail(${showDetail}), currentId(${currentId}), deferredCurrentId(${deferredCurrentId})`)
+console.log(`showDetail(${showDetail}), currentId(${currentId}), deferredCurrentId(${deferredCurrentId})`)
   // return (
   //   <React.Suspense 
   //     // maxDuration={1500}
@@ -90,11 +91,11 @@ const App = () => {
     <div className='App'>
       <Suspense
         // maxDuration={1500}
-        fallback={<Spinner isBig/>}
+        fallback={<Spinner />}
       >
         { showDetail ?
           renderDetail(currentId) :
-          renderList()
+          renderList(currentId)
         }
       </Suspense>
       

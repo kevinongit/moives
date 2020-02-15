@@ -1,24 +1,24 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
-import { movieReviewsJSON, movieDetailsJSON } from '../api/data';
+// import { movieReviewsJSON } from '../api/data';
 import { fetchMovieDetails, fetchMovieReviews } from '../api';
-import { createResource } from 'hitchcock';
+import { createFetcher } from '../future';
+import Spinner from '../Spinner';
 
 
 export default function MoviePage(props) {
   return (
     <div>
       <MovieDetails id={props.id} />
-      
-      <MovieReviews id={props.id} />
-      
+
+        <MovieReviews id={props.id} />
     </div>
   )
 }
 
-const movieDetailsFetcher = createResource(
+const movieDetailsFetcher = createFetcher(
   fetchMovieDetails,
-  id => `/movies/${id}/details`
+  id => `movies/${id}/details`
 );
 
 function MovieDetails(props) {
@@ -70,10 +70,10 @@ function MovieMetrics(movie) {
   )
 }
 
-const movieReviewsFetcher = createResource(
+const movieReviewsFetcher = createFetcher(
   fetchMovieReviews,
   id => `/movies/${id}/reviews`
-);
+)
 
 function MovieReviews(props) {
   const reviews = movieReviewsFetcher.read(props.id);

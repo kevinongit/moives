@@ -6,9 +6,8 @@ import * as serviceWorker from './serviceWorker';
 
 import { Director } from 'hitchcock';
 
-const container = document.getElementById("root");
-const root=ReactDOM.createRoot(container);
-root.render(<Director><App/></Director>);
+ReactDOM.createRoot(document.getElementById("root")).render(<Director><App/></Director>);
+
 // ReactDOM.render(
 //     <Director>
 //         <App/>

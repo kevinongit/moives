@@ -1,4 +1,4 @@
-import React, { Suspense, Placeholder } from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom"
 import Spinner from "./Spinner";
 import MovieListPage from "./movie/MovieListPage";
@@ -6,11 +6,12 @@ import MoviePage from './movie/MoviePage';
 import './App.css';
 import { toggleDirector } from './misc/toggleDirector'
 
+const DEALY_MS = 1000;
 
 const App = () => {
   const [currentId, setCurrentId] = React.useState(null);
   const deferredCurrentId = React.useDeferredValue(currentId, {
-    timeoutMs: 3000,
+    timeoutMs: DEALY_MS,
   });
 
   const handleMovieClick = id => {
@@ -37,33 +38,41 @@ const App = () => {
     )
   }
   
-  function renderList(id) {
+  function renderList() {
     return (
       <>
         <MovieListPage
           onMovieClick={handleMovieClick}
-          // loadingId={2}
-          loadingId={id}
+          // loadingId={id}
         />
       </>
     );
   }
 
   const showDetail = deferredCurrentId !== null && currentId === deferredCurrentId;
-
+  // console.log(`showdetail(${showDetail})`)
   return (
     <div className='App'>
       <Suspense
-        fallback={<Spinner />}
+        fallback={<Spinner isBig/>}
       >
         { showDetail ?
           renderDetail(currentId) :
-          renderList(currentId)
+          renderList()
         }
       </Suspense>
-      
     </div>
   );
 };
+
+function NextButton(props) {
+  return (
+    <div className="next" onClick={props.onClick}>
+      <div className="next-inner">
+        { props.isLoading ? <Spinner /> : '👉'}
+      </div>
+    </div>
+  )
+}
 
 export default App;

@@ -1,13 +1,14 @@
 import React from 'react';
 import Spinner from '../Spinner'
 import { movieListJSON as movies } from '../api/data';
+import { toggleDirector } from '../misc/toggleDirector';
 
 
-export default function MovieListPage({ loadingId, onMovieClick, toggleTool }) {
+export default function MovieListPage({ loadingId, onMovieClick }) {
   console.log(`loadingId(${loadingId})`)
   return (
     <div>
-      <h1> Top Box <a  onClick={toggleTool}>🐞</a>ffice {/*<a className="Bug" onClick={toggleTool}>{' 🐞'}</a> */}🍿 </h1>
+      <h1> Top Box <a  onClick={toggleDirector}>🐞</a>ffice {/*<a className="Bug" onClick={toggleTool}>{' 🐞'}</a> */}🍿 </h1>
 
       <div >
         {

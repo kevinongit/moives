@@ -4,19 +4,8 @@ import Spinner from "./Spinner";
 import MovieListPage from "./movie/MovieListPage";
 import MoviePage from './movie/MoviePage';
 import './App.css';
+import { toggleDirector } from './misc/toggleDirector'
 
-const toggleTool = () => {
-  const directorId = "hitchcock-director";
-  const director = document.getElementById(directorId);
-  if (director) {
-    if (director.style.display === "block") {
-      director.style.display = "none";
-    } else {
-      director.style.display = "block";
-    }
-  }
-
-}
 
 const App = () => {
   const [currentId, setCurrentId] = React.useState(null);
@@ -32,7 +21,7 @@ const App = () => {
     setCurrentId(null);
   };
 
-  toggleTool();
+  toggleDirector();
 
   function renderDetail(id) {
     return (
@@ -53,7 +42,6 @@ const App = () => {
       <>
         <MovieListPage
           onMovieClick={handleMovieClick}
-          toggleTool={toggleTool}
           // loadingId={2}
           loadingId={id}
         />

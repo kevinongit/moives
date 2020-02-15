@@ -1,5 +1,5 @@
 import React from 'react';
-import Spinner from '../misc/Spinner'
+import Spinner from '../Spinner'
 import { movieListJSON as movies } from '../api/data';
 
 

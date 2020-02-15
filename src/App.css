@@ -30,6 +30,8 @@
   /* text-align: start; */
   /* justify-content: flex-start; */
   background-color: transparent;
+  border-color: gray;
+  margin-left: 5px;
   /* border: none; */
 }
 

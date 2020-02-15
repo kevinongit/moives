@@ -1,11 +1,8 @@
-import React, { Suspense, useState } from 'react';
-import { Grid, Paper, Typography, Divider } from '@material-ui/core';
+import React from 'react';
 
 import { movieReviewsJSON, movieDetailsJSON } from '../api/data';
 import { fetchMovieDetails, fetchMovieReviews } from '../api';
 import { createResource } from 'hitchcock';
-
-import Spinner from '../misc/Spinner';
 
 
 export default function MoviePage(props) {
@@ -13,11 +10,7 @@ export default function MoviePage(props) {
     <div>
       <MovieDetails id={props.id} />
       
-      {/* <Suspense
-        fallback={<Spinner isBig/>}
-      > */}
-        <MovieReviews id={props.id} />
-      {/* </Suspense> */}
+      <MovieReviews id={props.id} />
       
     </div>
   )
@@ -35,29 +28,11 @@ function MovieDetails(props) {
     <div className="MovieDetails">
       <MoviePoster src={movie.poster} />
       <h1>{movie.title}</h1>
+      <hr className="TitleHr" />
       <MovieMetrics {...movie} />
     </div>
   )
 }
-// function MovieDetails(props) {
-//   const [movie, setMovie] = useState(null);
-//   // const movie = movieDetailsJSON[props.id];
-
-//   const fm = fetchMovieDetails({...props, interval: 3000});
-//   fm.then(m => setMovie(m));
-//   return (
-//     movie ? 
-//       <div className={classes.paper}>
-//         <Grid container spacing={2}>
-//           <MoviePoster src={movie.poster} />
-//           {/* <h2>{movie.title}</h2> */}
-//           <MovieMatrics {...movie} />
-//         </Grid>
-//       </div>
-//       :
-//       <Spinner isBig />
-//   )
-// }
 
 function MoviePoster(props) {
   return (
@@ -71,11 +46,24 @@ function MovieMetrics(movie) {
   return (
     <div>
       <div>
-        <h3>Tomatometer</h3>
-        {movie.fresh ? '🍅' : ' 🤢'} {movie.rating}
+        <div className="Meter">
+          <div className="MeterItem">
+            <h5 className="MetricsTitle">TOMATOMETER</h5>
+            <div className="tomato">
+              {movie.fresh ? '🍅' : ' 🤢'} {movie.rating}
+            </div>
+          </div>
+          <div className="MeterItem">
+            <h5 className="MetricsTitle"> AUDIENCE</h5>
+            <div className="tomato">
+            🍿 {movie.audience}
+            </div>
+          </div>
+        </div>
+
       </div>
       <div>
-        <h3>Critics Consensus</h3>
+        <h5 className="MetricsTitle">CRITICS CONSENSUS</h5>
         {movie.consensus}
       </div>
     </div>
@@ -89,14 +77,16 @@ const movieReviewsFetcher = createResource(
 
 function MovieReviews(props) {
   const reviews = movieReviewsFetcher.read(props.id);
-  return (<div className="MovieReviews">
-    {(reviews || []).map((review, index) => (
-    
-      <div className="review" key={index}>
-        <div className="summary">{review.text}</div>
-        {/* <div className="author">{review.author}</div> */}
-      </div>
-    )) }
+  return (
+    <div className="MovieReviews">
+      {(reviews || []).map((review, index) => (
+      
+        <div className="review" key={index}>
+          {review.fresh ? '🍅' : ' 🤢'} {review.fresh}
+          <div className="summary">{review.text}</div>
+          {/* <div className="author">{review.author}</div> */}
+        </div>
+      )) }
     </div>
   )
 }

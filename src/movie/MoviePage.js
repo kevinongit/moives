@@ -18,7 +18,7 @@ export default function MoviePage(props) {
 
 const movieDetailsFetcher = createFetcher(
   fetchMovieDetails,
-  id => `movies/${id}/details`
+  id => `/movies/${id}/details`
 );
 
 function MovieDetails(props) {
@@ -34,10 +34,30 @@ function MovieDetails(props) {
   )
 }
 
+const imageFetcher = createFetcher(
+  src => new Promise(resolve => {
+    const image = new Image();
+    image.onload = () => resolve(src);
+    image.src = src;
+  })
+)
+function Img(props) {
+  return (
+    <img {...props} 
+      src={imageFetcher.read(props.src)}
+    />
+  )
+}
+
 function MoviePoster(props) {
   return (
     <div className="MoviePoster">
-      <img className="PosterImage" src={props.src} alt="poster" />
+      <Suspense
+        fallback={<img className="PosterImage" src={props.src} alt="poster" /> }
+      >
+        <Img className="PosterImage" src={props.src} alt="poster" />  
+      </Suspense>
+      
     </div>
   )
 }

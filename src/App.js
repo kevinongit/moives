@@ -6,7 +6,7 @@ import MoviePage from './movie/MoviePage';
 import './App.css';
 import { toggleDirector } from './misc/toggleDirector'
 
-const DEALY_MS = 1000;
+const DEALY_MS = 4000;
 
 const App = () => {
   const [currentId, setCurrentId] = React.useState(null);
@@ -38,12 +38,12 @@ const App = () => {
     )
   }
   
-  function renderList() {
+  function renderList(id) {
     return (
       <>
         <MovieListPage
           onMovieClick={handleMovieClick}
-          // loadingId={id}
+          loadingId={id}
         />
       </>
     );
@@ -58,7 +58,7 @@ const App = () => {
       >
         { showDetail ?
           renderDetail(currentId) :
-          renderList()
+          renderList(currentId)
         }
       </Suspense>
     </div>

@@ -39,7 +39,7 @@ const imageFetcher = createFetcher(
     const image = new Image();
     image.onload = () => resolve(src);
     image.src = src;
-  })
+  }),
 )
 function Img(props) {
   return (
